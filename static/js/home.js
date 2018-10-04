@@ -66,8 +66,8 @@ ns.model = (function() {
         'delete': function(person_id) {
             let ajax_options = {
                 type: 'DELETE',
-                url: `api/people/${person.person_id}`,
-                accepts: 'application/json',
+                url: `api/people/${person_id}`,
+                accepts: 'plain/text',
                 contentType: 'plain/text'
             };
             $.ajax(ajax_options)
@@ -192,7 +192,7 @@ ns.controller = (function(m, v) {
 
         e.preventDefault();
 
-        if (validate('placeholder', lname)) {
+        if (validate(fname, lname)) {
             model.delete(person_id)
         } else {
             alert('Problem with first or last name input');
