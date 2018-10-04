@@ -1,25 +1,32 @@
+
 """
-Main module
+Main module of the server file
 """
 
-from flask import Flask, render_template
-import connexion
+# 3rd party moudles
+from flask import render_template
 
-# create flask app instance
-app = Flask(__name__, template_folder='templates')
-
-#create connextion instance
-app = connexion.App(__name__, specification_dir='./')
-
-# read swagger .yml file to configure endpoints
-app.add_api('swagger.yml')
+# local modules
+import config
 
 
-#create url route for appllication '/'
+# Get the application instance
+connex_app = config.connex_app
 
-@app.route('/')
+# Read the swagger.yml file to configure the endpoints
+connex_app.add_api('swagger.yml')
+
+
+# create a URL route in our application for "/"
+@connex_app.route('/')
 def home():
+    """
+    This function just responds to the browser URL
+    localhost:5000/
+    :return:        the rendered template "home.html"
+    """
     return render_template("home.html")
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    connex_app.run(debug=True)
